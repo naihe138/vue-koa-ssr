@@ -1,5 +1,5 @@
 import Vue from 'vue'
-import router from './router'
+// import router from './router'
 
 import App from './App.vue'
 
@@ -8,7 +8,7 @@ import App from './App.vue'
 export default () => {
   const app = new Vue({
     el: '#app',
-    router,
+    // router,
     render: h => h(App)
   })
   return { app }  

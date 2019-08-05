@@ -8,13 +8,15 @@ const VueServerRender = require('vue-server-renderer')
 const app = new Koa()
 const router = new Router()
 
-let serverBundle = fs.readFileSync('./dist/server.bundle.js', 'utf-8')
+let serverBundle = require('./dist/vue-ssr-server-bundle.json')
+
+let clientManifest = require('./dist/vue-ssr-client-manifest.json')
 
 let template = fs.readFileSync('./dist/index.ssr.html', 'utf-8')
 
-
 const render = VueServerRender.createBundleRenderer(serverBundle, {
-  template: template
+  template: template,
+  clientManifest // 渲染的时候可以自动找到客户端文件
 })
 
 router.get('/', async ctx => {
