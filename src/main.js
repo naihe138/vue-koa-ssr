@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import creatRouter from './router'
+import creatStore from './store'
 
 import App from './App.vue'
 
@@ -7,9 +8,11 @@ import App from './App.vue'
 // 如果是服务端渲染，每个人都应该有自己的vue示例
 export default () => {
   const router = creatRouter()
+  const store = creatStore()
   const app = new Vue({
     router,
+    store,
     render: h => h(App)
   })
-  return { app, router }  
+  return { app, router, store }  
 }

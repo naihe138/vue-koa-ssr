@@ -1,7 +1,6 @@
 // 服务户端
 
 import createApp from './main'
-import { resolve } from 'any-promise';
 
 // 需要调用当前文件  产生一个vue实例
 export default (context) => {
@@ -11,14 +10,22 @@ export default (context) => {
   // return app
   
   return new Promise((resolve, reject) => {
-    const { app, router } = createApp()
+    const { app, router, store } = createApp()
     router.push(context.url)
     router.onReady(() => {
+      // 匹配到所有的组件
       let matchs = router.getMatchedComponents()
       if (matchs.length === 0) {
         reject({code: 404})
       } else {
-        resolve(app)
+        Promise.all(matchs.map(component => {
+          if (component.asyncData) {
+            return component.asyncData(store)
+          }
+        })).then(() => {
+          context.state = store.state
+          resolve(app)
+        })
       }
     }, reject)
   })

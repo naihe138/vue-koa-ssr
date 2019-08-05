@@ -4,6 +4,6 @@
 
 <style scoped>
   .red {
-    background: red;
+    background: red
   }
 </style>
