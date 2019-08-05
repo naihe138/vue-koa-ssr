@@ -41,7 +41,6 @@ app.use(async ctx => {
       })
     })
   }catch(e) {
-    console.log(12312)
     ctx.body = '404'
   }
 })
