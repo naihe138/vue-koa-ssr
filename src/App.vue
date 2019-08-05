@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div id="app">
     <h1>vue-ssr</h1>
     <p>
       <router-link to="/">Foo</router-link>
