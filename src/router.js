@@ -6,22 +6,23 @@ import Baz from './components/Baz'
 
 Vue.use(VueRouter)
 
-const router = new VueRouter({
-  mode: 'history',
-  routes: [
-    {
-      path: '/',
-      component: Foo
-    },
-    {
-      path: '/bar',
-      component: Bar
-    },
-    {
-      path: '/baz',
-      component: Baz
-    }
-  ]
-})
-
-export default router
+export default () => {
+  const router = new VueRouter({
+    mode: 'history',
+    routes: [
+      {
+        path: '/',
+        component: Foo
+      },
+      {
+        path: '/bar',
+        component: Bar
+      },
+      {
+        path: '/baz',
+        component: Baz
+      }
+    ]
+  })
+  return router
+}

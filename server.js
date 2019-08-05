@@ -21,7 +21,7 @@ const render = VueServerRender.createBundleRenderer(serverBundle, {
 
 router.get('/', async ctx => {
   ctx.body = await new Promise((resolve, reject) => {
-    render.renderToString((err, data) => {
+    render.renderToString({url: '/'}, (err, data) => {
       if (err) reject(err)
       resolve(data)
     })
@@ -30,4 +30,20 @@ router.get('/', async ctx => {
 
 app.use(router.routes())
 app.use(static(path.join(__dirname, 'dist')))
+
+// 如果服务器没有此路径
+app.use(async ctx => {
+  try{
+    ctx.body = await new Promise((resolve, reject) => {
+      render.renderToString({url: ctx.url}, (err, data) => {
+        if (err) reject(err)
+        resolve(data)
+      })
+    })
+  }catch(e) {
+    console.log(12312)
+    ctx.body = '404'
+  }
+})
+
 app.listen(3000)
