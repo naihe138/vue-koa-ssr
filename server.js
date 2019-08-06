@@ -20,8 +20,12 @@ const render = VueServerRender.createBundleRenderer(serverBundle, {
 })
 
 router.get('/', async ctx => {
+  const context = {
+    title: 'Vue aaaa', // default title
+    url: ctx.url
+  }
   ctx.body = await new Promise((resolve, reject) => {
-    render.renderToString({url: '/'}, (err, data) => {
+    render.renderToString(context, (err, data) => {
       if (err) reject(err)
       resolve(data)
     })
@@ -33,9 +37,13 @@ app.use(static(path.join(__dirname, 'dist')))
 
 // 如果服务器没有此路径
 app.use(async ctx => {
+  const context = {
+    title: 'Vue aaaa', // default title
+    url: ctx.url
+  }
   try{
     ctx.body = await new Promise((resolve, reject) => {
-      render.renderToString({url: ctx.url}, (err, data) => {
+      render.renderToString(context, (err, data) => {
         if (err) reject(err)
         resolve(data)
       })

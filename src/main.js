@@ -1,6 +1,8 @@
 import Vue from 'vue'
 import creatRouter from './router'
 import creatStore from './store'
+import titleMixin from './mixin/title'
+Vue.mixin(titleMixin)
 
 import App from './App.vue'
 
