@@ -3,6 +3,7 @@ const path = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const merge = require('webpack-merge')
 const ServerRenderPlugin = require('vue-server-renderer/server-plugin')
+const InserJsPligin = require('./inser-js-plugin')
 const base = require('./webpack.base.config')
 
 const resolve = dir => path.resolve(__dirname, dir)
@@ -21,6 +22,10 @@ module.exports = merge(base, {
       filename: 'index.ssr.html',
       template: resolve('../public/index.ssr.html'),
       excludeChunks: ['server'] // 排除某个模块
+    }),
+    new InserJsPligin({
+      template: 'index.ssr.html',
+      path: 'vue.dll.js'
     })
   ]
 })

@@ -1,8 +1,9 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Foo from './components/Foo'
-import Bar from './components/Bar'
-import Baz from './components/Baz'
+
+const Bar = () => import('./components/Bar')
+const Baz = () => import('./components/Baz')
 
 Vue.use(VueRouter)
 

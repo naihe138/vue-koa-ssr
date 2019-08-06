@@ -23,6 +23,7 @@ router.get('/', async ctx => {
   ctx.body = await new Promise((resolve, reject) => {
     render.renderToString({url: '/'}, (err, data) => {
       if (err) reject(err)
+      console.log(11, data)
       resolve(data)
     })
   })
