@@ -1,7 +1,7 @@
 <template>
   <div>Foo
     <button @click="clickMe">click me</button>
-    <p>{{this.$store.state.name}}</p>
+    <p class="green">{{this.$store.state.name}}</p>
   </div>
 </template>
 
@@ -22,3 +22,11 @@
     }
   }
 </script>
+
+<style>
+  .green {
+    background: green;
+    color: #ffffff;
+  }
+</style>
+

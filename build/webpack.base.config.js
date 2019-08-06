@@ -1,7 +1,8 @@
 const webpack = require('webpack')
 const path = require('path')
 const VueLoader = require('vue-loader/lib/plugin')
-
+const MiniCssExtractPlugin = require('mini-css-extract-plugin')
+const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin')
 const resolve = dir => path.resolve(__dirname, dir)
 
 module.exports = {
@@ -11,6 +12,13 @@ module.exports = {
   },
   resolve: {
     extensions: ['.js', '.vue', '.css']
+  },
+  optimization: {
+    minimizer: [
+      new OptimizeCSSAssetsPlugin({
+        cssProcessorOptions: { safe: true, map: false }
+      })
+    ]
   },
   module: {
     rules: [
@@ -26,7 +34,15 @@ module.exports = {
       },
       {
         test: /.css$/,
-        use: ['vue-style-loader', 'css-loader']
+        // use: [MiniCssExtractPlugin.loader, 'vue-style-loader', 'css-loader']
+        use: [{
+          loader: MiniCssExtractPlugin.loader,
+          // options: {
+          //   publicPath: (resourcePath, context) => {
+          //     return path.relative(path.dirname(resourcePath), context) + '/';
+          //   },
+          // },
+        }, 'css-loader']
       },
       {
         test: /.vue$/,
@@ -35,6 +51,12 @@ module.exports = {
     ]
   },
   plugins: [
-    new VueLoader()
+    new VueLoader(),
+    // css 提取
+    new MiniCssExtractPlugin({
+      filename: 'css/[name].css',
+      chunkFilename: 'css/[name].css',
+      sourceMap: false
+    })
   ]
 }
