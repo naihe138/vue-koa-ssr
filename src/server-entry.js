@@ -8,7 +8,7 @@ export default (context) => {
   // const { app, router } = createApp()
   // router.push(context.url)
   // return app
-  
+
   return new Promise((resolve, reject) => {
     const { app, router, store } = createApp()
     router.push(context.url)
@@ -20,12 +20,15 @@ export default (context) => {
       } else {
         Promise.all(matchs.map(component => {
           if (component.asyncData) {
-            return component.asyncData(store)
+            return component.asyncData({
+              store,
+              route: router.currentRoute
+            })
           }
         })).then(() => {
           context.state = store.state
           resolve(app)
-        })
+        }).catch(reject)
       }
     }, reject)
   })

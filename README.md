@@ -12,8 +12,6 @@ or
 
 ## use
 
-`npm run client:build`
+`npm run build`
 
-`npm run server:build`
-
-`node server.js`
+`npm start`
